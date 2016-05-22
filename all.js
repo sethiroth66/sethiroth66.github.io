@@ -223,7 +223,7 @@ $(document).ready(function(){
     });
 
     $("a.clear").on('click',function(){
-        if(confirm("Are you sure you want to clear your counts?")){
+        if(confirm("Are you sure you want wipe memory and clear everything?")){
             clear();
         }
     });
