@@ -1,6 +1,51 @@
-<!DOCTYPE HTML>
-<html>
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EVE Calc</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    <script src="all.js"></script>
+</head>
 <body>
-<h1>Hello World</h1>
+
+<div id="popup">
+    <div id="popup_background">&nbsp;</div>
+    <div id="popup_body">
+        <h2>Re-add</h2>
+        <ul id="list_to_show">
+        </ul>
+    </div>
+</div>
+
+<div id="controls">
+    <a href="#" class="re_add" style="float: right;">[Show]</a>
+</div>
+
+<div id="table_container">
+<table border="1">
+    <thead>
+    <tr>
+        <th colspan="6"><a href="#" class="clear" title="Clear memory">Clear</a></th>
+        <th class="sum_tot_buy">0</th>
+        <th class="sum_tot_sell">0</th>
+    </tr>
+    <tr>
+        <th colspan="2"></th>
+        <th>Name</th>
+        <th>Buy</th>
+        <th>Sell</th>
+        <th>Count</th>
+        <th>Tot. Buy </th>
+        <th>Tot. Sell </th>
+    </tr>
+    </thead>
+    <tbody id="sort_prices">
+    </tbody>
+</table>
+</div>
 </body>
 </html>

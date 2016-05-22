@@ -1,0 +1,96 @@
+*{
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+html{
+    min-height: 100%;
+}
+body{
+    min-height: 100%;
+    position: relative;
+    margin: 0;
+    padding:0;
+    bottom: 0;
+}
+form input[type='submit']{
+    cursor: pointer;
+}
+form{
+    display: inline-block;
+}
+#controls{
+    display: block;
+    width:100%;
+    min-height: 1.5em;
+    padding:0.5em 1em;
+    position: fixed;
+    top: 0;
+}
+
+#table_container{
+    display: block;
+    width:100%;
+}
+#table_container>table{
+    margin: 2em auto 0;
+}
+#popup{
+    top:0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+    width:100%;
+    height:100%;
+    display: none;
+    z-index:1;
+}
+#popup_background{
+    width:100%;
+    height:100vh;
+    background-color: rgba(0,0,0,0.4);
+    z-index:2;
+    top:0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+}
+#popup.display{
+    display: block;
+}
+#popup_body #list_to_show{
+    max-height:500px;
+    overflow-y: scroll;
+}
+#popup_body{
+    margin:5em auto 0;
+    display: block;
+    background-color: #fff;
+    border-radius: 1em;
+    width: 50%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding:0.5em 1em;
+    z-index:3;
+    position: relative;
+
+}
+.fa-arrows{
+    cursor: move;
+}
+.fa-minus{
+    cursor: pointer;
+    color: #FF0000;
+}
+.hide{
+    display: none;
+}
+
+.Ore { background-color: #AC7B59;}
+.Ice{ background-color: #9EFAFF;}
+.OreMineral{ background-color: #2CAC34;}
+.IceMineral{ background-color: #7ED0D5;}
+.Plex{ background-color: Gold;}
