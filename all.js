@@ -97,6 +97,7 @@ Number.prototype.formatMoney = function(len, dec, thou){
 };
 
 function clear(){
+    $("body").removeAttr("class");
     localStorage.clear();
     $("input.c, input.b, input.s").val("0");
     calc();
@@ -182,6 +183,11 @@ $(function() {
 
 $(document).ready(function(){
 
+    if(localStorage.getItem('style') && localStorage.getItem('style').length){
+        $("body").addClass(localStorage.getItem('style'));
+        $("select[name='color_scheme'] option[value='"+localStorage.getItem('style')+"']").attr('selected',true);
+    }
+
     for (var obj in items) {
         var item = items[obj];
         var c = item.category.replace(/[^a-zA-Z0-9]/,'');
@@ -244,6 +250,13 @@ $(document).ready(function(){
         });
         localStorage.setItem('hidden', cooked.join('|'));
         do_hidden();
+    });
+
+    $("select[name='color_scheme']").on('change',function(){
+        var oc = localStorage.getItem('style');
+        var nc = $(this).val();
+        $("body").removeClass(oc).addClass(nc);
+        localStorage.setItem('style',nc)
     });
 
     $("input.b, input.c, input.s").on('change',function(){

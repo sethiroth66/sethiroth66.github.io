@@ -16,6 +16,11 @@ body{
 form input[type='submit']{
     cursor: pointer;
 }
+input, select, textarea{
+    margin: 0;
+    padding: 0;
+    border:0;
+}
 form{
     display: inline-block;
 }
@@ -94,3 +99,20 @@ form{
 .OreMineral{ background-color: #2CAC34;}
 .IceMineral{ background-color: #7ED0D5;}
 .Plex{ background-color: Gold;}
+
+/*
+    Color Schemes
+*/
+body.inverted #popup_background{background-color: rgba(255,255,255,0.3); }
+body.inverted ,
+body.inverted #popup_body,
+body.inverted select,
+body.inverted option,
+body.inverted textarea,
+body.inverted input{color: #FFFFFF;background-color: #000000;}
+body.inverted a{color: #FFFF00;}
+body.inverted .Ore { color: #AC7B59; background-color: #000000;}
+body.inverted .Ice{ color: #9EFAFF; background-color: #000000;}
+body.inverted .OreMineral{ color: #2CAC34; background-color: #000000;}
+body.inverted .IceMineral{ color: #7ED0D5; background-color: #000000;}
+body.inverted .Plex{ color: Gold; background-color: #000000;}
