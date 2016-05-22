@@ -1,7 +1,3 @@
-/**
- * Created by sethy on 5/8/2016.
- */
-
 var items = [
     {"id":"29668", "name": "Plex","type": "Plex","sub_type": null,"category": "Plex"},
 
@@ -82,18 +78,19 @@ var items = [
     {"id":"16274","name": "Helium Isotope","type": "Helium Isotope","sub_type": null,"category": "Ice Mineral"},
     {"id":"17888","name": "Nitrogen Isotope","type": "Nitrogen Isotope","sub_type": null,"category": "Ice Mineral"},
     {"id":"17887","name": "Oxygen Isotope","type": "Oxygen Isotope","sub_type": null,"category": "Ice Mineral"},
-    {"id":"17889","name": "Hydrogen Isotope","type": "Hydrogen Isotope","sub_type": null,"category": "Ice Mineral"},
+    {"id":"17889","name": "Hydrogen Isotope","type": "Hydrogen Isotope","sub_type": null,"category": "Ice Mineral"}
 ];
 
-Number.prototype.formatMoney = function(c, d, t){
-    var n = this,
-        c = isNaN(c = Math.abs(c)) ? 2 : c,
-        d = d == undefined ? "." : d,
-        t = t == undefined ? "," : t,
-        s = n < 0 ? "-" : "",
-        i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "",
-        j = (j = i.length) > 3 ? j % 3 : 0;
-        m = s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+Number.prototype.formatMoney = function(len, dec, thou){
+    var n = this;
+    var c = isNaN(len = Math.abs(len)) ? 2 : len;
+    var d = dec == undefined ? "." : dec;
+    var t = thou == undefined ? "," : thou;
+    var s = n < 0 ? "-" : "";
+    var i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "";
+    var j = i.length;
+    j = j > 3 ? j % 3 : 0;
+    var m = s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
         if(m==0)
             m=0;
         return m;
@@ -110,19 +107,17 @@ function calc(tr){
     var b = $("input.b",tr).val();
     var c = $("input.c",tr).val();
     var s = $("input.s",tr).val();
-    nb = (b * c).formatMoney(2,'.',',');
-    ns = (s * c).formatMoney(2,'.',',');
-    $(".tot_buy",tr).text( nb );
-    $(".tot_sell",tr).text( ns );
+    $(".tot_buy",tr).text( (b * c).formatMoney(2,'.',',') );
+    $(".tot_sell",tr).text( (s * c).formatMoney(2,'.',',') );
 }
 
 function do_sum_total() {
     var targets = ["tot_buy", "tot_sell"];
     for(var i = 0;i<targets.length;i++){
-        st = ".sum_"+targets[i];
-        t = "."+targets[i];
-        tot = 0;
-        $(t).each(function(i,dom){
+        var st = ".sum_"+targets[i];
+        var t = "." + targets[i];
+        var tot = 0;
+        $(t).each(function(){
             tot+=Number($(this).text().replace(/[^0-9\.]/g,""));
         });
         tot = tot.formatMoney(2,'.',',');
@@ -141,11 +136,11 @@ function do_hidden(a) {
         var id = "tr#"+SavedID[Scolumn];
         $(id).addClass("hide");
     }
-    var lts =$("#list_to_show");
+    var lts = $("#list_to_show");
     lts.html("");
     $( "tr.hide" ).each(function(index, domEle){
-        html = "<li><a class='re_add_me' href='#' data-id='"+$(this).attr('id')+"'>"+$(".name",domEle).text()+"</a></li>";
-        lts.append(html)
+        var htm = "<li><a class='re_add_me' href='#' data-id='"+$(this).attr('id')+"'>"+$(".name",domEle).text()+"</a></li>";
+        lts.append(htm);
     });
 }
 
@@ -177,7 +172,7 @@ $(function() {
         revert: 200,
         helper: 'clone',
         tolerance: 'pointer',
-        update: function(event, ui) {
+        update: function() {
             var cooked = [];
             $( "#sort_prices" ).each(function(index, domEle){ cooked[index]=$(domEle).sortable('toArray');});
             localStorage.setItem('sort_prices','x'+cooked.join('|'));
@@ -187,17 +182,17 @@ $(function() {
 
 $(document).ready(function(){
 
-    for(var i in items){
+    for (var obj in items) {
+        var item = items[obj];
+        var c = item.category.replace(/[^a-zA-Z0-9]/,'');
 
-        var c = items[i].category.replace(/[^a-zA-Z0-9]/,'');
-
-        var h = "<tr class='item' id='" + items[i].id + "'>"+
+        var h = "<tr class='item' id='" + item.id + "'>"+
             "<td><span class='fa fa-minus'></span></td>"+
             "<td><span class='fa fa-arrows'></span></td>"+
-            "<td class='name " + c + "'>" + items[i].name + "</td>"+
-            "<td><input type='number' min='0' step='0.01' name='item_buy[" + items[i].id + "]' value='0' class='b'></td>"+
-            "<td><input type='number' min='0' step='0.01' name='item_sell[" + items[i].id + "]' value='0' class='s'></td>"+
-            "<td><input type='number' min='0' step='1' name='item_count[" + items[i].id + "]' value='0' class='c'></td>"+
+            "<td class='name " + c + "'>" + item.name + "</td>"+
+            "<td><input type='number' min='0' step='0.01' name='item_buy[" + item.id + "]' value='0' class='b'></td>"+
+            "<td><input type='number' min='0' step='0.01' name='item_sell[" + item.id + "]' value='0' class='s'></td>"+
+            "<td><input type='number' min='0' step='1' name='item_count[" + item.id + "]' value='0' class='c'></td>"+
             "<td class='tot_buy'>0</td>"+
             "<td class='tot_sell'>0</td>"+
             "</tr>";
@@ -208,12 +203,11 @@ $(document).ready(function(){
     do_hidden();
 
     for(var i=0;i<localStorage.length;i++){
-        k = localStorage.key(i);
-        v = localStorage.getItem(k);
-        t = "input[name='"+k+"']";
+        var k = localStorage.key(i);
+        var v = localStorage.getItem(k);
+        var t = "input[name='"+k+"']";
         $(t).val(v);
-        tr = $(t).parent().parent();
-        calc(tr);
+        calc($(t).parent().parent());
         do_sum_total();
     }
 
@@ -232,7 +226,7 @@ $(document).ready(function(){
     });
 
     $("#list_to_show").on("click","a.re_add_me",function(){
-        id = "tr#"+$(this).attr("data-id");
+        var id = "tr#"+$(this).attr("data-id");
         $(id).removeClass("hide");
         var cooked = [];
         $( "tr.hide" ).each(function(index, domEle){
